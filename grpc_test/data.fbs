@@ -1,0 +1,22 @@
+namespace CppFlatBufGrpc.Sample;
+
+table Data {
+  name: string;
+  value: int;
+}
+
+table Stat {
+  id: string;
+  val: long;
+  count: ushort;
+}
+
+rpc_service DataStorage {
+  Store(Data):Stat (streaming: "none");
+  Retrieve(Stat):Data (streaming: "server", idempotent);
+}
+
+root_type Data;
+
+file_identifier "DATA";
+file_extension "dat";
